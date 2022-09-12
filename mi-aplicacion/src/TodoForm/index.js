@@ -1,26 +1,28 @@
-import React, { useContext } from 'react'
-import { TodoContext } from '../App/TodoContext';
+import React from 'react'
 import './index.css'
-export const TodoForm = () => {
-    const {
-        NewTodoValue,
-        onSetText,
-        addTodo,
-        onClickButton
-    } = useContext(TodoContext);
+export const TodoForm = ({
+    onCancel,
+    newTodoValue,
+    setNewTodoValue,
+    addTodo }) => {
+
+    const onChange = ({ target }) => {
+        setNewTodoValue(target.value)
+    }
+
     return (
         <form onSubmit={addTodo}>
             <label>Escribe tu nuevo TODO</label>
             <textarea
                 type='text'
-                value={NewTodoValue}
+                value={newTodoValue}
                 placeholder='Cortar cebolla'
-                onChange={onSetText} />
+                onChange={onChange} />
             <div className="TodoForm-buttonContainer">
                 <button
                     type="button"
                     className="TodoForm-button TodoForm-button--cancel"
-                    onClick={onClickButton}
+                    onClick={onCancel}
                 >
                     Cancelar
                 </button>

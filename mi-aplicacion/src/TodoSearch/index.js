@@ -1,14 +1,12 @@
-import React, { useContext } from 'react'
-import { TodoContext } from '../App/TodoContext';
+import React from 'react'
 import './index.css';
 
 
-export const TodoSearch = () => {
-  const {
-        searchValue,
-        onSearchValue,
-      } = useContext(TodoContext);
+export const TodoSearch = ({searchValue,setSearchValue, loading}) => {
 
+    const onSearchValue = ({ target }) => {
+      setSearchValue(target.value)
+  }
   return (
     <>  
           <input 
@@ -16,6 +14,7 @@ export const TodoSearch = () => {
             placeholder='Cortar cebolla'
             value={searchValue}
             onChange={onSearchValue}
+            disabled={loading}
           />
     </>
   )

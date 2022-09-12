@@ -1,11 +1,15 @@
 import React from 'react'
 import './index.css'
 
-export const TodoList = (props) => {
+export const TodoList = ({ onError,onLoading,onEmptyTodos,children,onEmptySearchResults}) => {
   return (
-    <section>
+    <section className='TodoList-container'>
+      {onError()}
+      {onLoading()}
+      {onEmptyTodos()}
+      {onEmptySearchResults()}
       <ul>
-        {props.children}
+      {children}
       </ul>
     </section>
   )
