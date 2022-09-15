@@ -12,6 +12,7 @@ export function useTodos () {
         saveItem, 
         loading, 
         error,
+        sincronizeItem: sincronizeTodos,
     } = useLocalStorage ('TODOS_V1', [] );
     
     const completed = item.filter(item => item.completed).length;
@@ -67,6 +68,7 @@ export function useTodos () {
         newTodoValue,
         deleteTodo,
         setNewTodoValue,
+        sincronizeTodos,
     };
 
 }

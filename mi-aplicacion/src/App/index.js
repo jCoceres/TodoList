@@ -12,6 +12,7 @@ import { EmptyTodos } from '../EmptyTodos';
 import { TodoHeader } from '../TodoHeader';
 import { useTodos } from './useTodos';
 import { EmptyResults } from '../EmptyResults';
+import { ChangeAlert} from '../ChangeAlert';
 
 
 function App() {
@@ -29,31 +30,26 @@ function App() {
         deleteTodo,
         newTodoValue,
         setNewTodoValue,
-        addTodo
+        addTodo,
+        sincronizeTodos,
     } = useTodos();
-    const onError = () => (error && <TodosError />)
-    const onLoading = () => (loading && <TodosLoading />)
-    const onEmptyTodos = () => ((!loading && !searchedTodos.length && !searchValue) && <EmptyTodos />)
-    const onEmptySearchResults = () => ( (!totalTodos.length && searchValue) && <EmptyResults searchValue={searchValue}/>);
     return (
         <>
-            <TodoHeader>
+            <TodoHeader loading={loading}>
                 <TodoCounter
                     completed={completed}
                     totalTodos={totalTodos}
-                    loading={loading}
                 />
                 <TodoSearch
                     searchValue={searchValue}
                     setSearchValue={setSearchValue}
-                    loading={loading}
                 />
             </TodoHeader>
             <TodoList
-                onError={onError}
-                onLoading={onLoading}
-                onEmptyTodos={onEmptyTodos}
-                onEmptySearchResults={onEmptySearchResults}
+                onError={() => error && <TodosError />}
+                onLoading={() => loading && <TodosLoading />}
+                onEmptyTodos={() => (!loading && !searchedTodos.length && !searchValue) && <EmptyTodos />}
+                onEmptySearchResults={() => (!totalTodos.length && searchValue) && <EmptyResults searchValue={searchValue} />}
             >
                 {searchedTodos.map((todo, index) => (
                     <TodoItem
@@ -76,9 +72,16 @@ function App() {
                 </Modal>
             )}
 
-            <CreateTodoButton onClickButton={onClickButton} openModal={openModal} />
+            <CreateTodoButton
+                onClickButton={onClickButton}
+                openModal={openModal} />
+            <ChangeAlert
+                sincronize={sincronizeTodos}
+            />
         </>
     );
 }
 
 export default App;
+
+
